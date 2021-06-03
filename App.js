@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
+import { Background, Face, Message, Stars } from './components'
 
-export default function App() {
+const { height, width } = Dimensions.get('screen')
+
+export default () => {
+  const [score, setScore] = useState(0)
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Background score={score}>
+      <View style={styles.message}>
+        <Message />
+      </View>
+      <View style={styles.face}>
+        <Face height={height} score={score} width={width} />
+      </View>
+      <View style={styles.stars}>
+        <Stars score={score} onChange={score => setScore(score)} />
+      </View>
+    </Background>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  message: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-});
+  face: {
+    flex: 1,
+  },
+  stars: {
+    flex: 1,
+  },
+})
